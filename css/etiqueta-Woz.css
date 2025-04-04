@@ -1,0 +1,151 @@
+.form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: #e9ecef;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.color-area {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.color-bubble {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.2s;
+}
+
+.color-bubble:hover {
+    transform: scale(1.2);
+}
+
+.color-options {
+    display: none;
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin-top: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 20px;
+    background-color: #e9ecef;
+    border-radius: 10px;
+    z-index: 100;
+}
+
+.color-options.show {
+    display: flex;
+}
+
+.valid-feedback-icon {
+    margin-left: 10px;
+    color: green;
+}
+
+.invalid-feedback-icon {
+    margin-left: 10px;
+    color: red;
+}
+
+.pencil-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .pencil-icon::before {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 12px;
+    background-color: #000;
+    transform: rotate(45deg);
+    top: 2px;
+    left: 6px;
+    border-radius: 1px;
+  }
+
+  .pencil-icon::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 6px solid #f4c542; /* punta amarilla */
+    top: -2px;
+    left: 6px;
+    transform: rotate(45deg);
+  }
+
+  body.modal-open {
+    filter: blur(3px);
+  }
+
+  .form-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: #e9ecef;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  .color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  .switch input:checked {
+    background-color: green;
+    border-color: green;
+  }
+
+  .switch input:not(:checked) {
+    background-color: red;
+    border-color: red;
+  }
+
+  .table > :not(caption) > * > * {
+    vertical-align: middle;
+  }
+
+  .modal-backdrop.show {
+    opacity: 0.5;
+  }
+
+  .pencil-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    background: linear-gradient(45deg, transparent 40%, black 40%, black 60%, transparent 60%);
+    cursor: pointer;
+  }
+
+  .pencil-icon::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 6px;
+    height: 6px;
+    background-color: black;
+  }
