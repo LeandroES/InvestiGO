@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        .color-circle {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="container mt-5">
+        <div class="p-3 mb-2 bg-light border rounded-5 shadow-sm">
+            <h2 class="fw-bold text-center">Editar Etiqueta</h2>
+            <form action="">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label h4">Nombre: </label>
+                    <div id="etiqueta_dup" class="text-danger d-inline h5">Ingrese un nombre de etiqueta válido, omita caracteres especiales "\", "/", ":", "*", "?", "\"", "&lt;", ">", "|".</div> <div class="h4"></div>
+                    <input type="" class="form-control" placeholder="[Texto vacío o caracteres no adminitidos]">
+                </div>
+                <div class="mb-3">
+                    <label for="color" class="form-label h3">Color: </label>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                            Seleccione un color
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-start">
+                            <li><a href="#" class="dropdown-item">
+                                <span class="color-circle" style="background-color: red;"></span> Rojo
+                            </a></li>
+                            <li><a href="#" class="dropdown-item">
+                                <span class="color-circle" style="background-color: blue;"></span> Azul
+                            </a></li>
+                            <li><a href="#" class="dropdown-item">
+                                <span class="color-circle" style="background-color: yellow;"></span> Amarillo
+                            </a></li>
+                            <li><a href="#" class="dropdown-item">
+                                <span class="color-circle" style="background-color: orange;"></span> Naranja
+                            </a></li>
+                            <li><a href="#" class="dropdown-item">
+                                <span class="color-circle" style="background-color: pink;"></span> Rosado
+                            </a></li>
+                            <li><a href="#" class="dropdown-item">
+                                <span class="color-circle" style="background-color: purple;"></span> Morado
+                            </a></li>
+                            <li><a href="#" class="dropdown-item">
+                                <span class="color-circle" style="background-color: black;"></span> Negro
+                            </a></li>
+                            <li><a href="#" class="dropdown-item">
+                                <span class="color-circle" style="background-color: gray;"></span> Gris
+                            </a></li>
+                            <li><a href="#" class="dropdown-item">
+                                <span class="color-circle" style="background-color: brown;"></span> Marrón
+                            </a></li>
+                            <li><a href="#" class="dropdown-item">
+                                <span class="color-circle" style="background-color: teal;"></span> Verde azulado
+                            </a></li>
+                        </ul>        
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <textarea name="" id="" class="form-control" style="height: 150px;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. At nesciunt quia dolorem facere molestiae quo tempora dolorum, consectetur earum! Exercitationem deleniti vel beatae nobis excepturi magnam corporis soluta minus laboriosam.</textarea>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-light btn-lg border shadow me-5">Cancelar</button>
+                    <input type="submit" value="Guardar" class="btn btn-primary btn-lg border shadow">
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu" crossorigin="anonymous"></script>
+
+</body>
+</html>
