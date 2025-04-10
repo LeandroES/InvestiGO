@@ -1,0 +1,304 @@
+.form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: #e9ecef;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.color-area {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.color-bubble {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.2s;
+}
+
+.color-bubble:hover {
+    transform: scale(1.2);
+}
+
+.color-options {
+    display: none;
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin-top: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 20px;
+    background-color: #e9ecef;
+    border-radius: 10px;
+    z-index: 100;
+}
+
+.color-options.show {
+    display: flex;
+}
+
+.valid-feedback-icon {
+    margin-left: 10px;
+    color: green;
+}
+
+.invalid-feedback-icon {
+    margin-left: 10px;
+    color: red;
+}
+
+.pencil-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .pencil-icon::before {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 12px;
+    background-color: #000;
+    transform: rotate(45deg);
+    top: 2px;
+    left: 6px;
+    border-radius: 1px;
+  }
+
+  .pencil-icon::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 6px solid #f4c542; /* punta amarilla */
+    top: -2px;
+    left: 6px;
+    transform: rotate(45deg);
+  }
+
+  body.modal-open {
+    filter: blur(3px);
+  }
+
+  .form-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: #e9ecef;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  .color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  .switch input:checked {
+    background-color: green;
+    border-color: green;
+  }
+
+  .switch input:not(:checked) {
+    background-color: red;
+    border-color: red;
+  }
+
+  .table > :not(caption) > * > * {
+    vertical-align: middle;
+  }
+
+  .modal-backdrop.show {
+    opacity: 0.5;
+  }
+
+  .pencil-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    background: linear-gradient(45deg, transparent 40%, black 40%, black 60%, transparent 60%);
+    cursor: pointer;
+  }
+
+  .pencil-icon::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 6px;
+    height: 6px;
+    background-color: black;
+  }
+
+  /*Google Docs */
+  .icon-google-docs {
+    position: relative;
+    width: 60px;
+    height: 80px;
+    background-color: #4285f4; /* Azul Google Docs */
+    border-radius: 4px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+  /* Esquina doblada */
+  .icon-google-docs::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: 20px solid white;
+    border-left: 20px solid transparent;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 2px;
+  }
+  /* Líneas de texto */
+  .icon-google-docs::after {
+    content: "";
+    position: absolute;
+    top: 37px;
+    left: 10px;
+    width: 40px;
+    height: 2px;
+    background: white;
+    box-shadow:
+      0 8px white,
+      0 16px white,
+      0 24px white;
+  }
+
+
+  /*Google Sheets */
+  .icon-google-sheets {
+  position: relative;
+  width: 60px;
+  height: 80px;
+  background-color: #0f9d58; /* Verde Google Sheets */
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+  /* Esquina doblada */
+  .icon-google-sheets::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: 20px solid white;
+    border-left: 20px solid transparent;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 2px;
+}
+  /* Celdas estilo tabla */
+  .icon-google-sheets::after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 9px;
+  width: 41px;
+  height: 43px;
+  background:
+    linear-gradient(to right, white 3px, transparent 3px),
+    linear-gradient(to bottom, white 3px, transparent 3px);
+  background-size: 19px 13.4px;
+}
+
+
+  /*Upload icon */
+  .icon-upload {
+        /* Bandeja inferior */
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 30px;
+        border: 4px solid #000;     /* grosor de la línea */
+        border-top: none;           /* abierto en la parte de arriba */
+        border-radius: 0 0 8px 8px; /* esquinas redondeadas sólo abajo */
+        box-sizing: border-box;
+    }
+  /* Flecha: cuerpo vertical */
+  .icon-upload::before {
+        content: "";
+        position: absolute;
+        left: 50%;                   /* centrado horizontal */
+        bottom: 20px;                /* justo en el borde superior de la bandeja */
+        transform: translateX(-50%);
+        width: 8px;                  /* grosor de la flecha */
+        height: 20px;                /* largo de la flecha */
+        background: #000;            /* color de la flecha */
+        border-radius: 2px;          /* esquinas redondeadas en la barra */
+    }
+  /* Flecha: punta triangular */
+  .icon-upload::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 36px;                /* 30 (bandeja) + 20 (barra) = 50 */
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-bottom: 16px solid #000;
+    }
+
+
+  /*Download icon */
+  .icon-download {
+    /* Bandeja inferior */
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    border: 4px solid #000;     /* grosor de la línea */
+    border-top: none;           /* abierto en la parte de arriba */
+    border-radius: 0 0 8px 8px; /* esquinas redondeadas sólo abajo */
+    box-sizing: border-box;
+}
+  /* Flecha: cuerpo vertical */
+  .icon-download::before {
+    content: "";
+    position: absolute;
+    left: 50%;                   /* centrado horizontal */
+    bottom: 33px;                /* justo en el borde superior de la bandeja */
+    transform: translateX(-50%);
+    width: 8px;                  /* grosor de la flecha */
+    height: 20px;                /* largo de la flecha */
+    background: #000;            /* color de la flecha */
+    border-radius: 2px;          /* esquinas redondeadas en la barra */
+}
+  /* Flecha: punta triangular */
+  .icon-download::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 20px;                /* 30 (bandeja) + 20 (barra) = 50 */
+    transform: translateX(50%);
+    rotate: 180deg;            /* girar la flecha */
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 16px solid #000;
+}
