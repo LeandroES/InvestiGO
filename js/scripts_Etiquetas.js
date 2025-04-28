@@ -182,36 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Función para inicializar eventos
-function inicializarEventos() {
-  // Inicializar modales
-  const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
-  const actualizadaModal = new bootstrap.Modal(document.getElementById('etiquetaActualizadaModal'));
 
-  // Botones de lápiz (Editar)
-  document.querySelectorAll('.edit-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const fila = btn.closest('tr');
-
-      document.getElementById('editNombre').value = fila.dataset.nombre || '';
-      document.getElementById('editDescripcion').value = fila.dataset.descripcion || '';
-      document.getElementById('editSelectedColor').style.backgroundColor = fila.dataset.color || '#ccc';
-
-      editarModal.show();
-    });
-  });
-
-  // Evento "Guardar" del formulario de edición
-  const formEditar = document.getElementById('form-editar-etiqueta');
-  formEditar.addEventListener('submit', function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    editarModal.hide(); // Cerrar el modal de edición
-
-    setTimeout(() => {
-      actualizadaModal.show(); // Mostrar modal de etiqueta actualizada
-    }, 500);
-  });
-}
 
 
