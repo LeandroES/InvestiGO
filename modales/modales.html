@@ -76,7 +76,53 @@
         </div>
         <div class="modal-body">
           <form id="form-editar-etiqueta" novalidate>
-            <!-- Aquí va el formulario que ya te pasé -->
+            <!-- Nombre -->
+          <div class="mb-3">
+            <label for="editNombre" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" id="editNombre" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]*$">
+            <div class="invalid-feedback">
+              Solo letras del español y números después de una letra. No se permiten signos ni dejar vacío.
+            </div>
+          </div>
+
+          <!-- Color -->
+          <div class="mb-3">
+            <label class="form-label">Color:</label>
+            <span id="editColorFeedback" class="invalid-feedback-icon d-none">❌ Elija un color</span>
+            <span id="editColorCheck" class="valid-feedback-icon d-none">✅</span>
+            <div class="position-relative">
+              <div class="color-area border border-1" id="editColorHitbox">
+                <div class="color-bubble" id="editSelectedColor" style="background-color: #ccc;"></div>
+              </div>
+              <div class="color-options shadow" id="editColorOptions">
+                <div class="color-bubble" style="background-color: #00ff00;" data-color="#00ff00"></div>
+                <div class="color-bubble" style="background-color: #ffff00;" data-color="#ffff00"></div>
+                <div class="color-bubble" style="background-color: #ff0000;" data-color="#ff0000"></div>
+                <div class="color-bubble" style="background-color: #0000ff;" data-color="#0000ff"></div>
+                <div class="color-bubble" style="background-color: #ff00ff;" data-color="#ff00ff"></div>
+                <div class="color-bubble" style="background-color: #000000;" data-color="#000000"></div>
+                <div class="color-bubble" style="background-color: #ffa500;" data-color="#ffa500"></div>
+                <div class="color-bubble" style="background-color: #800080;" data-color="#800080"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Descripción -->
+          <div class="mb-3">
+            <label for="editDescripcion" class="form-label">Descripción:</label>
+            <span id="editDescCheck" class="valid-feedback-icon d-none">✅</span>
+            <div id="editDescripcionFeedback" class="form-text text-muted">
+              * Puedes dejarlo en blanco si no deseas agregar una descripción.
+            </div>
+            <textarea class="form-control" id="editDescripcion" rows="3" placeholder="Descripción de la etiqueta"></textarea>
+          </div>
+
+          <!-- Botones -->
+          <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+
           </form>
         </div>
       </div>
