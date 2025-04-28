@@ -180,8 +180,58 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error('Error cargando modales:', error);
     });
 });
-
+//////////////////////////////////////////////////////////////////
 // Función para inicializar eventos
 
+document.addEventListener('DOMContentLoaded', function() {
+  // Cargar modales dinámicamente
+  fetch('https://leandroes.github.io/InvestiGO/modales/modales.html')
+    .then(response => {
+      if (!response.ok) throw new Error('No se pudo cargar modales.html');
+      return response.text();
+    })
+    .then(html => {
+      document.getElementById('modalesContainer').innerHTML = html;
+
+      // Una vez cargados los modales, inicializamos TODO
+      inicializarEventos();
+    })
+    .catch(error => {
+      console.error('Error cargando modales:', error);
+    });
+});
+
+// Función para inicializar eventos
+function inicializarEventos() {
+  // Inicializar modales
+  const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
+  const actualizadaModal = new bootstrap.Modal(document.getElementById('etiquetaActualizadaModal'));
+
+  // Botones de lápiz (Editar)
+  document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const fila = btn.closest('tr');
+
+      document.getElementById('editNombre').value = fila.dataset.nombre || '';
+      document.getElementById('editDescripcion').value = fila.dataset.descripcion || '';
+      document.getElementById('editSelectedColor').style.backgroundColor = fila.dataset.color || '#ccc';
+
+      editarModal.show();
+    });
+  });
+
+  // Evento "Guardar" del formulario de edición
+  const formEditar = document.getElementById('form-editar-etiqueta');
+  formEditar.addEventListener('submit', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    editarModal.hide(); // Cerrar el modal de edición
+
+    setTimeout(() => {
+      actualizadaModal.show(); // Mostrar modal de etiqueta actualizada
+    }, 500);
+  });
+}
 
 
