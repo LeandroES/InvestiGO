@@ -7,6 +7,12 @@ body {
   filter: blur(3px);
 }
 
+.switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
   
   /* Contenedor principal de formularios */
   .form-container {
