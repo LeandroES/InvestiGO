@@ -21,11 +21,6 @@ body {
   z-index: 1;
 }
 
-.modal,
-.modal-backdrop {
-  z-index: 1055 !important;
-}
-
 /* Contenedor principal de formularios */
   .form-container {
     max-width: 500px;
