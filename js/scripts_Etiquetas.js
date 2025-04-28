@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(html => {
       document.getElementById('modalesContainer').innerHTML = html;
+
+      // REINSTANCIAR modal después de que los modales estén en el DOM
+    const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
+    const actualizadaModal = new bootstrap.Modal(document.getElementById('etiquetaActualizadaModal'));
       inicializarEventos(); // Cuando ya se insertaron los modales
     })
     .catch(error => {
@@ -14,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function inicializarEventos() {
+function inicializarEventos(editarModal, actualizadaModal) {
   // ---- Variables de formulario de creación ----
   const form = document.getElementById('form-etiqueta');
   const nombreInput = document.getElementById('nombre');
