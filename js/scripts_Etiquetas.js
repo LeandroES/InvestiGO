@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('modalesContainer').innerHTML = html;
 
       // ⏳ Esperar un pequeño tiempo para asegurar que todo esté en el DOM
-      setTimeout(inicializarEventos, 100);
+      setTimeout(inicializarEventos, 50);
     })
     .catch(error => {
       console.error('Error cargando modales:', error);
@@ -237,7 +237,7 @@ function inicializarEventos() {
 
       setTimeout(() => {
         actualizadaModal.show();
-      }, 400);
+      }, 50);
     });
   }
 }
