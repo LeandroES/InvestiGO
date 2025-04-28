@@ -75,21 +75,13 @@ form.addEventListener('submit', (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-  // Cargar modales
-  fetch('https://leandroes.github.io/InvestiGO/modales/modales.html')
-    .then(response => response.text())
-    .then(html => {
-      document.getElementById('modalesContainer').innerHTML = html;
-
-      // Activar eventos una vez cargados los modales
-      inicializarEventos();
-    });
 
   function inicializarEventos() {
     // Botones de editar
     document.querySelectorAll('.edit-btn').forEach(btn => {
       btn.addEventListener('click', function () {
         const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
+        backdrop: false
         editarModal.show();
       });
     });
@@ -100,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault(); // Evitar envío real del formulario
 
       const editarModalInstance = bootstrap.Modal.getInstance(document.getElementById('editarEtiquetaModal'));
+      backdrop: false
       editarModalInstance.hide(); // Cierra editarEtiquetaModal
 
       // Esperar a que termine de ocultarse para mostrar el de actualizado
@@ -116,4 +109,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 500); // 500 ms para dar tiempo a cerrar bien el primer modal
     });
   }
+
+  // ✨ Esto es lo que faltaba:
+  inicializarEventos();
+
 });
