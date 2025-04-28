@@ -165,9 +165,7 @@ function inicializarEventos() {
 //Etiqueta Actualizada funcionalidad
 //////////////////////////////////////////////////////////////////
 // Función para inicializar eventos
-
 document.addEventListener('DOMContentLoaded', function() {
-  // Primero cargar modales dinámicamente
   fetch('https://leandroes.github.io/InvestiGO/modales/modales.html')
     .then(response => {
       if (!response.ok) throw new Error('No se pudo cargar modales.html');
@@ -176,8 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(html => {
       document.getElementById('modalesContainer').innerHTML = html;
 
-      // ⏳ Esperar un pequeño tiempo para asegurar que todo esté en el DOM
-      setTimeout(inicializarEventos, 50);
+      inicializarEventos();
     })
     .catch(error => {
       console.error('Error cargando modales:', error);
@@ -196,7 +193,7 @@ function inicializarEventos() {
   const editarModal = new bootstrap.Modal(editarModalElement);
   const actualizadaModal = new bootstrap.Modal(actualizadaModalElement);
 
-  // Inicializar eventos en lápices
+  // Botones de lápiz
   document.querySelectorAll('.edit-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const fila = btn.closest('tr');
@@ -209,7 +206,7 @@ function inicializarEventos() {
     });
   });
 
-  // Guardar cambios en edición
+  // Guardar cambios
   const formEditar = document.getElementById('form-editar-etiqueta');
   if (formEditar) {
     formEditar.addEventListener('submit', function(event) {
@@ -220,7 +217,7 @@ function inicializarEventos() {
 
       setTimeout(() => {
         actualizadaModal.show();
-      }, 50);
+      }, 300);
     });
   }
 }
