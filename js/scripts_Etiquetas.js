@@ -7,9 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(html => {
       document.getElementById('modalesContainer').innerHTML = html;
-
-    const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
-    const actualizadaModal = new bootstrap.Modal(document.getElementById('etiquetaActualizadaModal'));
       setTimeout(() => {
       inicializarEventos();
     }, 100); // Pequeña espera para que el DOM esté listo
