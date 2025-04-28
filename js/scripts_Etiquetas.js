@@ -1,17 +1,3 @@
-// 1. Primero cargar modales dinámicamente
-fetch('https://leandroes.github.io/InvestiGO/modales/modales.html')
-  .then(response => {
-    if (!response.ok) throw new Error('No se pudo cargar modales.html');
-    return response.text();
-  })
-  .then(html => {
-    document.getElementById('modalesContainer').innerHTML = html;
-    inicializarEventos(); // 🚀 Sólo después de cargar modales
-  })
-  .catch(error => {
-    console.error('Error cargando modales:', error);
-  });
-
 // 2. Inicializar eventos
 function inicializarEventos() {
   // Formulario de nueva etiqueta
