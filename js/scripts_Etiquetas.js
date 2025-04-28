@@ -162,3 +162,50 @@ function inicializarEventos() {
     // Aquí podrías mostrar un toast de éxito 🚀
   });
 }
+//Etiqueta Actualizada funcionalidad
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('https://leandroes.github.io/InvestiGO/modales/modales.html')
+    .then(response => {
+      if (!response.ok) throw new Error('No se pudo cargar modales.html');
+      return response.text();
+    })
+    .then(html => {
+      document.getElementById('modalesContainer').innerHTML = html;
+
+      const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
+      const actualizadaModal = new bootstrap.Modal(document.getElementById('etiquetaActualizadaModal'));
+
+      // Eventos para los botones de lápiz
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const fila = btn.closest('tr');
+
+          document.getElementById('editNombre').value = fila.dataset.nombre || '';
+          document.getElementById('editDescripcion').value = fila.dataset.descripcion || '';
+          document.getElementById('editSelectedColor').style.backgroundColor = fila.dataset.color || '#ccc';
+
+          editarModal.show();
+        });
+      });
+
+      // Evento para el botón "Guardar" en el modal de editar etiqueta
+      const formEditar = document.getElementById('form-editar-etiqueta');
+
+      formEditar.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevenir el envío real del formulario
+        event.stopPropagation();
+
+        // Aquí podrías validar si quieres, pero para ahora simplemente:
+        editarModal.hide(); // Cerrar modal de edición
+
+        setTimeout(() => {
+          actualizadaModal.show(); // Mostrar modal de "Etiqueta actualizada"
+        }, 500); // Esperamos medio segundo para mejor transición
+      });
+
+    })
+    .catch(error => {
+      console.error('Error cargando modales:', error);
+    });
+});
+
