@@ -1,3 +1,71 @@
+<!-- Modal: Confirmar Cancelar -->
+<div class="modal fade" id="confirmarCancelarModal" tabindex="-1" aria-labelledby="confirmarCancelarModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center p-4">
+        <h5>¿Seguro que quieres cancelar?</h5>
+        <p>Se perderán los cambios no guardados.</p>
+        <div class="d-flex justify-content-center gap-2 mt-3">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger" id="btnConfirmarCancelar">Sí, cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Etiqueta Activada -->
+<div class="modal fade" id="etiquetaActivadaModal" tabindex="-1" aria-labelledby="etiquetaActivadaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-success">
+      <div class="modal-body text-center p-4">
+        <i class="fas fa-check-circle fa-3x mb-3"></i>
+        <h5>Etiqueta activada</h5>
+        <p>La etiqueta fue activada correctamente.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Etiqueta Desactivada -->
+<div class="modal fade" id="etiquetaDesactivadaModal" tabindex="-1" aria-labelledby="etiquetaDesactivadaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-warning">
+      <div class="modal-body text-center p-4">
+        <i class="fas fa-exclamation-circle fa-3x mb-3"></i>
+        <h5>Etiqueta desactivada</h5>
+        <p>La etiqueta ha sido desactivada exitosamente.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Etiqueta Actualizada -->
+<div class="modal fade" id="etiquetaActualizadaModal" tabindex="-1" aria-labelledby="etiquetaActualizadaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-primary">
+      <div class="modal-body text-center p-4">
+        <i class="fas fa-sync-alt fa-3x mb-3"></i>
+        <h5>Etiqueta actualizada</h5>
+        <p>La etiqueta se actualizó correctamente.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Etiqueta Desactualizada -->
+<div class="modal fade" id="etiquetaDesactualizadaModal" tabindex="-1" aria-labelledby="etiquetaDesactualizadaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-danger">
+      <div class="modal-body text-center p-4">
+        <i class="fas fa-times-circle fa-3x mb-3"></i>
+        <h5>Actualización fallida</h5>
+        <p>No se pudo actualizar la etiqueta. Inténtalo nuevamente.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal Editar Etiqueta -->
 <div class="modal fade" id="editarEtiquetaModal" tabindex="-1" aria-labelledby="editarEtiquetaModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
