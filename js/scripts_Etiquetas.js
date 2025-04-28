@@ -1,202 +1,119 @@
-// Esperar a que cargue todo
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('https://leandroes.github.io/InvestiGO/modales/modales.html')
-      .then(response => {
-        if (!response.ok) throw new Error('No se pudo cargar modales.html');
-        return response.text();
-      })
-      .then(html => {
-        document.getElementById('modalesContainer').innerHTML = html;
-        setTimeout(() => {
-        inicializarEventos();
-      }, 100); // Pequeña espera para que el DOM esté listo
-    })
-    .catch(error => {
-      console.error('Error cargando modales:', error);
-    });
-});
-  
-  function inicializarEventos() {
-    // ---- Variables de formulario de creación ----
-    const form = document.getElementById('form-etiqueta');
-    const nombreInput = document.getElementById('nombre');
-    const descripcion = document.getElementById('descripcion');
-    const descCheck = document.getElementById('descCheck');
-    const hitbox = document.getElementById('colorHitbox');
-    const opciones = document.getElementById('colorOptions');
-    const selector = document.getElementById('selectedColor');
-    const colorFeedback = document.getElementById('colorFeedback');
-    const colorCheck = document.getElementById('colorCheck');
-    let colorSeleccionado = null;
-  
-    // ---- Variables de formulario de edición ----
-    const formEditar = document.getElementById('form-editar-etiqueta');
-    const editNombreInput = document.getElementById('editNombre');
-    const editDescripcion = document.getElementById('editDescripcion');
-    const editDescCheck = document.getElementById('editDescCheck');
-    const editColorOptions = document.getElementById('editColorOptions');
-    const editColorHitbox = document.getElementById('editColorHitbox');
-    const editSelectedColor = document.getElementById('editSelectedColor');
-    const editColorFeedback = document.getElementById('editColorFeedback');
-    const editColorCheck = document.getElementById('editColorCheck');
-    let colorSeleccionadoEditar = null;
-  
-    // ---- Variables de modales ----
-    const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
-    const actualizadaModal = new bootstrap.Modal(document.getElementById('etiquetaActualizadaModal'));
-  
-    if (!form || !formEditar) {
-      console.error('Formularios no encontrados.');
-      return;
-    }
-  
-    // ------------------------------------------------
-    // VALIDACIONES Y FUNCIONALIDADES CREACIÓN NUEVA ETIQUETA
-    // ------------------------------------------------
-    
-    nombreInput.addEventListener('input', () => {
-      const valor = nombreInput.value.trim();
-      const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]*$/;
-      if (valor === '' || !regex.test(valor)) {
+const form = document.getElementById('form-etiqueta');
+const nombreInput = document.getElementById('nombre');
+const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]*$/;
+
+// Validación de nombre
+nombreInput.addEventListener('input', () => {
+    const valor = nombreInput.value.trim();
+    if (valor === '' || !regex.test(valor)) {
         nombreInput.classList.add('is-invalid');
         nombreInput.classList.remove('is-valid');
-      } else {
+    } else {
         nombreInput.classList.remove('is-invalid');
         nombreInput.classList.add('is-valid');
-      }
-    });
-  
-    descripcion.addEventListener('input', () => {
-      if (descripcion.value.trim().length > 0) {
+    }
+});
+
+// Descripción: check si hay texto, mensaje si está vacío
+const descripcion = document.getElementById('descripcion');
+const descCheck = document.getElementById('descCheck');
+descripcion.addEventListener('input', () => {
+    if (descripcion.value.trim().length > 0) {
         descCheck.classList.remove('d-none');
-      } else {
+    } else {
         descCheck.classList.add('d-none');
-      }
-    });
-  
-    hitbox.addEventListener('mouseenter', () => {
-      opciones.classList.add('show');
-    });
-    opciones.addEventListener('mouseleave', () => {
-      opciones.classList.remove('show');
-    });
-    opciones.querySelectorAll('.color-bubble').forEach(bubble => {
-      bubble.addEventListener('click', () => {
+    }
+});
+
+// Color
+let colorSeleccionado = null;
+const hitbox = document.getElementById('colorHitbox');
+const opciones = document.getElementById('colorOptions');
+const selector = document.getElementById('selectedColor');
+const colorFeedback = document.getElementById('colorFeedback');
+const colorCheck = document.getElementById('colorCheck');
+
+hitbox.addEventListener('mouseenter', () => {
+    opciones.classList.add('show');
+});
+
+opciones.addEventListener('mouseleave', () => {
+    opciones.classList.remove('show');
+});
+
+opciones.querySelectorAll('.color-bubble').forEach(bubble => {
+    bubble.addEventListener('click', () => {
         const selected = bubble.getAttribute('data-color');
         selector.style.backgroundColor = selected;
         colorSeleccionado = selected;
         colorFeedback.classList.add('d-none');
         colorCheck.classList.remove('d-none');
         opciones.classList.remove('show');
-      });
     });
-  
-    form.addEventListener('submit', (e) => {
-      let valido = true;
-  
-      if (!form.checkValidity()) {
+});
+
+// Validar al enviar
+form.addEventListener('submit', (e) => {
+    let valido = true;
+
+    if (!form.checkValidity()) {
         valido = false;
-      }
-      if (!colorSeleccionado) {
+    }
+
+    if (!colorSeleccionado) {
         colorFeedback.classList.remove('d-none');
         colorCheck.classList.add('d-none');
         valido = false;
-      }
-      if (!valido) {
+    }
+
+    if (!valido) {
         e.preventDefault();
         e.stopPropagation();
-      }
-      form.classList.add('was-validated');
+    }
+
+    form.classList.add('was-validated');
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Cargar modales
+  fetch('https://leandroes.github.io/InvestiGO/modales/modales.html')
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('modalesContainer').innerHTML = html;
+
+      // Activar eventos una vez cargados los modales
+      inicializarEventos();
     });
-  
-    // ------------------------------------------------
-    // FUNCIONALIDADES Y VALIDACIONES EDICIÓN DE ETIQUETA
-    // ------------------------------------------------
-    
+
+  function inicializarEventos() {
+    // Botones de editar
     document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const fila = btn.closest('tr');
-  
-        document.getElementById('editNombre').value = fila.dataset.nombre || '';
-        document.getElementById('editDescripcion').value = fila.dataset.descripcion || '';
-        document.getElementById('editSelectedColor').style.backgroundColor = fila.dataset.color || '#ccc';
-        colorSeleccionadoEditar = fila.dataset.color || null;
-  
-  
+      btn.addEventListener('click', function () {
+        const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
         editarModal.show();
       });
     });
-  
-    editNombreInput.addEventListener('input', () => {
-      const valor = editNombreInput.value.trim();
-      const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]*$/;
-      if (valor === '' || !regex.test(valor)) {
-        editNombreInput.classList.add('is-invalid');
-        editNombreInput.classList.remove('is-valid');
-      } else {
-        editNombreInput.classList.remove('is-invalid');
-        editNombreInput.classList.add('is-valid');
-      }
-    });
-  
-    editDescripcion.addEventListener('input', () => {
-      if (editDescripcion.value.trim().length > 0) {
-        editDescCheck.classList.remove('d-none');
-      } else {
-        editDescCheck.classList.add('d-none');
-      }
-    });
-  
-    editColorHitbox.addEventListener('mouseenter', () => {
-      editColorOptions.classList.add('show');
-    });
-    editColorOptions.addEventListener('mouseleave', () => {
-      editColorOptions.classList.remove('show');
-    });
-    editColorOptions.querySelectorAll('.color-bubble').forEach(bubble => {
-      bubble.addEventListener('click', () => {
-        const selected = bubble.getAttribute('data-color');
-        editSelectedColor.style.backgroundColor = selected;
-        colorSeleccionadoEditar = selected;
-        editColorFeedback.classList.add('d-none');
-        editColorCheck.classList.remove('d-none');
-        editColorOptions.classList.remove('show');
-      });
-    });
-  
-    formEditar.addEventListener('submit', (e) => {
-      let valido = true;
-      if (!formEditar.checkValidity()) {
-        valido = false;
-      }
-      if (!colorSeleccionadoEditar) {
-        editColorFeedback.classList.remove('d-none');
-        editColorCheck.classList.add('d-none');
-        valido = false;
-      }
-      if (!valido) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      formEditar.classList.add('was-validated');
-  
-      // Cerramos modal editar
-      editarModal.hide();
-  
-      // Limpiamos backdrop manualmente
-      document.body.classList.remove('modal-open');
-      document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
-  
-   
-  
-      // Mostrar modal de etiqueta actualizada
+
+    // Botón guardar del modal editar
+    const formEditar = document.getElementById('form-editar-etiqueta');
+    formEditar.addEventListener('submit', function (e) {
+      e.preventDefault(); // Evitar envío real del formulario
+
+      const editarModalInstance = bootstrap.Modal.getInstance(document.getElementById('editarEtiquetaModal'));
+      editarModalInstance.hide(); // Cierra editarEtiquetaModal
+
+      // Esperar a que termine de ocultarse para mostrar el de actualizado
       setTimeout(() => {
-        actualizadaModal.show();
-      }, 400);
-  
-      // Auto cerrar modal de éxito
-      setTimeout(() => {
-        actualizadaModal.hide();
-      }, 2400);
+        const actualizadoModal = new bootstrap.Modal(document.getElementById('etiquetaActualizadaModal'));
+        actualizadoModal.show();
+
+        // Cerrar actualizadoModal automáticamente después de 1 segundo
+        setTimeout(() => {
+          actualizadoModal.hide();
+          // Recargar index.html
+          window.location.reload();
+        }, 1000);
+      }, 500); // 500 ms para dar tiempo a cerrar bien el primer modal
     });
   }
+});
