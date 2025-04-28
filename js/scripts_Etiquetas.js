@@ -1,230 +1,203 @@
-// 2. Inicializar eventos
+// Esperar a que cargue todo
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('https://leandroes.github.io/InvestiGO/modales/modales.html')
+    .then(response => {
+      if (!response.ok) throw new Error('No se pudo cargar modales.html');
+      return response.text();
+    })
+    .then(html => {
+      document.getElementById('modalesContainer').innerHTML = html;
+      inicializarEventos(); // Cuando ya se insertaron los modales
+    })
+    .catch(error => {
+      console.error('Error cargando modales:', error);
+    });
+});
+
 function inicializarEventos() {
-    // Formulario de nueva etiqueta
-    const form = document.getElementById('form-etiqueta');
-    const nombreInput = document.getElementById('nombre');
-    const descripcion = document.getElementById('descripcion');
-    const descCheck = document.getElementById('descCheck');
-    const hitbox = document.getElementById('colorHitbox');
-    const opciones = document.getElementById('colorOptions');
-    const selector = document.getElementById('selectedColor');
-    const colorFeedback = document.getElementById('colorFeedback');
-    const colorCheck = document.getElementById('colorCheck');
-    let colorSeleccionado = null;
+  // ---- Variables de formulario de creación ----
+  const form = document.getElementById('form-etiqueta');
+  const nombreInput = document.getElementById('nombre');
+  const descripcion = document.getElementById('descripcion');
+  const descCheck = document.getElementById('descCheck');
+  const hitbox = document.getElementById('colorHitbox');
+  const opciones = document.getElementById('colorOptions');
+  const selector = document.getElementById('selectedColor');
+  const colorFeedback = document.getElementById('colorFeedback');
+  const colorCheck = document.getElementById('colorCheck');
+  let colorSeleccionado = null;
+
+  // ---- Variables de formulario de edición ----
+  const formEditar = document.getElementById('form-editar-etiqueta');
+  const editNombreInput = document.getElementById('editNombre');
+  const editDescripcion = document.getElementById('editDescripcion');
+  const editDescCheck = document.getElementById('editDescCheck');
+  const editColorOptions = document.getElementById('editColorOptions');
+  const editColorHitbox = document.getElementById('editColorHitbox');
+  const editSelectedColor = document.getElementById('editSelectedColor');
+  const editColorFeedback = document.getElementById('editColorFeedback');
+  const editColorCheck = document.getElementById('editColorCheck');
+  let colorSeleccionadoEditar = null;
+
+  // ---- Variables de modales ----
+  const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
+  const actualizadaModal = new bootstrap.Modal(document.getElementById('etiquetaActualizadaModal'));
+  const contenidoPrincipal = document.getElementById('contenidoPrincipal');
+
+  if (!form || !formEditar) {
+    console.error('Formularios no encontrados.');
+    return;
+  }
+
+  // ------------------------------------------------
+  // VALIDACIONES Y FUNCIONALIDADES CREACIÓN NUEVA ETIQUETA
+  // ------------------------------------------------
   
-    // Formulario de editar etiqueta
-    const formEditar = document.getElementById('form-editar-etiqueta');
-    const editNombreInput = document.getElementById('editNombre');
-    const editDescripcion = document.getElementById('editDescripcion');
-    const editDescCheck = document.getElementById('editDescCheck');
-    const editColorOptions = document.getElementById('editColorOptions');
-    const editColorHitbox = document.getElementById('editColorHitbox');
-    const editSelectedColor = document.getElementById('editSelectedColor');
-    const editColorFeedback = document.getElementById('editColorFeedback');
-    const editColorCheck = document.getElementById('editColorCheck');
-    let colorSeleccionadoEditar = null;
-    const actualizadaModal = new bootstrap.Modal(actualizadaModalElement);
-  
-    const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
-  
-    if (!form || !formEditar) {
-      console.error('Formularios no encontrados.');
-      return;
+  nombreInput.addEventListener('input', () => {
+    const valor = nombreInput.value.trim();
+    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]*$/;
+    if (valor === '' || !regex.test(valor)) {
+      nombreInput.classList.add('is-invalid');
+      nombreInput.classList.remove('is-valid');
+    } else {
+      nombreInput.classList.remove('is-invalid');
+      nombreInput.classList.add('is-valid');
     }
-  
-    // Validación nombre en creación
-    nombreInput.addEventListener('input', () => {
-      const valor = nombreInput.value.trim();
-      const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]*$/;
-      if (valor === '' || !regex.test(valor)) {
-        nombreInput.classList.add('is-invalid');
-        nombreInput.classList.remove('is-valid');
-      } else {
-        nombreInput.classList.remove('is-invalid');
-        nombreInput.classList.add('is-valid');
-      }
-    });
-  
-    // Validación descripción en creación
-    descripcion.addEventListener('input', () => {
-      if (descripcion.value.trim().length > 0) {
-        descCheck.classList.remove('d-none');
-      } else {
-        descCheck.classList.add('d-none');
-      }
-    });
-  
-    // Selector de color en creación
-    hitbox.addEventListener('mouseenter', () => {
-      opciones.classList.add('show');
-    });
-    opciones.addEventListener('mouseleave', () => {
+  });
+
+  descripcion.addEventListener('input', () => {
+    if (descripcion.value.trim().length > 0) {
+      descCheck.classList.remove('d-none');
+    } else {
+      descCheck.classList.add('d-none');
+    }
+  });
+
+  hitbox.addEventListener('mouseenter', () => {
+    opciones.classList.add('show');
+  });
+  opciones.addEventListener('mouseleave', () => {
+    opciones.classList.remove('show');
+  });
+  opciones.querySelectorAll('.color-bubble').forEach(bubble => {
+    bubble.addEventListener('click', () => {
+      const selected = bubble.getAttribute('data-color');
+      selector.style.backgroundColor = selected;
+      colorSeleccionado = selected;
+      colorFeedback.classList.add('d-none');
+      colorCheck.classList.remove('d-none');
       opciones.classList.remove('show');
     });
-    opciones.querySelectorAll('.color-bubble').forEach(bubble => {
-      bubble.addEventListener('click', () => {
-        const selected = bubble.getAttribute('data-color');
-        selector.style.backgroundColor = selected;
-        colorSeleccionado = selected;
-        colorFeedback.classList.add('d-none');
-        colorCheck.classList.remove('d-none');
-        opciones.classList.remove('show');
-      });
-    });
+  });
+
+  form.addEventListener('submit', (e) => {
+    let valido = true;
+
+    if (!form.checkValidity()) {
+      valido = false;
+    }
+    if (!colorSeleccionado) {
+      colorFeedback.classList.remove('d-none');
+      colorCheck.classList.add('d-none');
+      valido = false;
+    }
+    if (!valido) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    form.classList.add('was-validated');
+  });
+
+  // ------------------------------------------------
+  // FUNCIONALIDADES Y VALIDACIONES EDICIÓN DE ETIQUETA
+  // ------------------------------------------------
   
-    // Validar al enviar nueva etiqueta
-    form.addEventListener('submit', (e) => {
-      let valido = true;
-  
-      if (!form.checkValidity()) {
-        valido = false;
-      }
-      if (!colorSeleccionado) {
-        colorFeedback.classList.remove('d-none');
-        colorCheck.classList.add('d-none');
-        valido = false;
-      }
-      if (!valido) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      form.classList.add('was-validated');
+  document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const fila = btn.closest('tr');
+
+      document.getElementById('editNombre').value = fila.dataset.nombre || '';
+      document.getElementById('editDescripcion').value = fila.dataset.descripcion || '';
+      document.getElementById('editSelectedColor').style.backgroundColor = fila.dataset.color || '#ccc';
+      colorSeleccionadoEditar = fila.dataset.color || null;
+
+      // Al abrir modal, quitar blur
+      contenidoPrincipal.style.filter = 'none';
+      editarModal.show();
     });
-  
-    // Click en botón editar
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const fila = btn.closest('tr');
-        document.getElementById('editNombre').value = fila.dataset.nombre || '';
-        document.getElementById('editDescripcion').value = fila.dataset.descripcion || '';
-        document.getElementById('editSelectedColor').style.backgroundColor = fila.dataset.color || '#ccc';
-        colorSeleccionadoEditar = fila.dataset.color || null;
-        editarModal.show();
-      });
-    });
-  
-    // Validación nombre en edición
-    editNombreInput.addEventListener('input', () => {
-      const valor = editNombreInput.value.trim();
-      const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]*$/;
-      if (valor === '' || !regex.test(valor)) {
-        editNombreInput.classList.add('is-invalid');
-        editNombreInput.classList.remove('is-valid');
-      } else {
-        editNombreInput.classList.remove('is-invalid');
-        editNombreInput.classList.add('is-valid');
-      }
-    });
-  
-    // Validación descripción en edición
-    editDescripcion.addEventListener('input', () => {
-      if (editDescripcion.value.trim().length > 0) {
-        editDescCheck.classList.remove('d-none');
-      } else {
-        editDescCheck.classList.add('d-none');
-      }
-    });
-  
-    // Selector de color en edición
-    editColorHitbox.addEventListener('mouseenter', () => {
-      editColorOptions.classList.add('show');
-    });
-    editColorOptions.addEventListener('mouseleave', () => {
+  });
+
+  editNombreInput.addEventListener('input', () => {
+    const valor = editNombreInput.value.trim();
+    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]*$/;
+    if (valor === '' || !regex.test(valor)) {
+      editNombreInput.classList.add('is-invalid');
+      editNombreInput.classList.remove('is-valid');
+    } else {
+      editNombreInput.classList.remove('is-invalid');
+      editNombreInput.classList.add('is-valid');
+    }
+  });
+
+  editDescripcion.addEventListener('input', () => {
+    if (editDescripcion.value.trim().length > 0) {
+      editDescCheck.classList.remove('d-none');
+    } else {
+      editDescCheck.classList.add('d-none');
+    }
+  });
+
+  editColorHitbox.addEventListener('mouseenter', () => {
+    editColorOptions.classList.add('show');
+  });
+  editColorOptions.addEventListener('mouseleave', () => {
+    editColorOptions.classList.remove('show');
+  });
+  editColorOptions.querySelectorAll('.color-bubble').forEach(bubble => {
+    bubble.addEventListener('click', () => {
+      const selected = bubble.getAttribute('data-color');
+      editSelectedColor.style.backgroundColor = selected;
+      colorSeleccionadoEditar = selected;
+      editColorFeedback.classList.add('d-none');
+      editColorCheck.classList.remove('d-none');
       editColorOptions.classList.remove('show');
     });
-    editColorOptions.querySelectorAll('.color-bubble').forEach(bubble => {
-      bubble.addEventListener('click', () => {
-        const selected = bubble.getAttribute('data-color');
-        editSelectedColor.style.backgroundColor = selected;
-        colorSeleccionadoEditar = selected;
-        editColorFeedback.classList.add('d-none');
-        editColorCheck.classList.remove('d-none');
-        editColorOptions.classList.remove('show');
-      });
-    });
-  
-    // Validar al enviar formulario de edición
-    formEditar.addEventListener('submit', (e) => {
-      let valido = true;
-      if (!formEditar.checkValidity()) {
-        valido = false;
-      }
-      if (!colorSeleccionadoEditar) {
-        editColorFeedback.classList.remove('d-none');
-        editColorCheck.classList.add('d-none');
-        valido = false;
-      }
-      if (!valido) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      formEditar.classList.add('was-validated');
-  
-      // Aquí podrías mostrar un toast de éxito 🚀
-    });
-
-    const editarModalElement = document.getElementById('editarEtiquetaModal');
-    const actualizadaModalElement = document.getElementById('etiquetaActualizadaModal');
-  
-    if (!editarModalElement || !actualizadaModalElement) {
-      console.error('No se encontraron los modales.');
-      return;
-    }
-  
-   
-  
-    // --- Inicializar lápices ---
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const fila = btn.closest('tr');
-        
-        document.getElementById('editNombre').value = fila.dataset.nombre || '';
-        document.getElementById('editDescripcion').value = fila.dataset.descripcion || '';
-        document.getElementById('editSelectedColor').style.backgroundColor = fila.dataset.color || '#ccc';
-        contenidoPrincipal.style.filter = 'none';
-        editarModal.show();
-      });
-    });
-  
-    // --- Formulario Guardar ---
-    if (formEditar) {
-      formEditar.addEventListener('submit', function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-  
-        editarModal.hide(); // Cerramos modal de editar
-  
-        // Limpiar clases de Bootstrap manualmente
-        document.body.classList.remove('modal-open');
-        const backdrops = document.querySelectorAll('.modal-backdrop');
-        backdrops.forEach(backdrop => backdrop.remove());
-  
-        setTimeout(() => {
-          actualizadaModal.show(); // Mostramos modal de actualización exitosa
-        }, 400);
-      });
-    }
-
-  }
-  //Etiqueta Actualizada funcionalidad
-  //////////////////////////////////////////////////////////////////
-  // Función para inicializar eventos
-  document.addEventListener('DOMContentLoaded', function() {
-    fetch('https://leandroes.github.io/InvestiGO/modales/modales.html')
-      .then(response => {
-        if (!response.ok) throw new Error('No se pudo cargar modales.html');
-        return response.text();
-      })
-      .then(html => {
-        document.getElementById('modalesContainer').innerHTML = html;
-  
-        inicializarEventos();
-      })
-      .catch(error => {
-        console.error('Error cargando modales:', error);
-      });
   });
- 
-  
-  
-  
+
+  formEditar.addEventListener('submit', (e) => {
+    let valido = true;
+    if (!formEditar.checkValidity()) {
+      valido = false;
+    }
+    if (!colorSeleccionadoEditar) {
+      editColorFeedback.classList.remove('d-none');
+      editColorCheck.classList.add('d-none');
+      valido = false;
+    }
+    if (!valido) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    formEditar.classList.add('was-validated');
+
+    // Cerramos modal editar
+    editarModal.hide();
+
+    // Limpiamos backdrop manualmente
+    document.body.classList.remove('modal-open');
+    document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
+
+    // Opcional: restaurar blur en contenido
+    contenidoPrincipal.style.filter = 'blur(3px)';
+
+    // Mostrar modal de etiqueta actualizada
+    setTimeout(() => {
+      actualizadaModal.show();
+    }, 400);
+
+    // Auto cerrar modal de éxito
+    setTimeout(() => {
+      actualizadaModal.hide();
+    }, 2400);
+  });
+}
