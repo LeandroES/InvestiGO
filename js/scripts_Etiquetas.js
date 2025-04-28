@@ -120,8 +120,7 @@ function inicializarEventos() {
       document.getElementById('editSelectedColor').style.backgroundColor = fila.dataset.color || '#ccc';
       colorSeleccionadoEditar = fila.dataset.color || null;
 
-      // Al abrir modal, quitar blur
-      contenidoPrincipal.style.filter = 'none';
+
       editarModal.show();
     });
   });
@@ -186,8 +185,7 @@ function inicializarEventos() {
     document.body.classList.remove('modal-open');
     document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
 
-    // Opcional: restaurar blur en contenido
-    contenidoPrincipal.style.filter = 'blur(3px)';
+ 
 
     // Mostrar modal de etiqueta actualizada
     setTimeout(() => {
