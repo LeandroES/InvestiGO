@@ -180,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error('Error cargando modales:', error);
     });
 });
-
 function inicializarEventos() {
   const editarModalElement = document.getElementById('editarEtiquetaModal');
   const actualizadaModalElement = document.getElementById('etiquetaActualizadaModal');
@@ -193,7 +192,7 @@ function inicializarEventos() {
   const editarModal = new bootstrap.Modal(editarModalElement);
   const actualizadaModal = new bootstrap.Modal(actualizadaModalElement);
 
-  // Botones de lápiz
+  // --- Inicializar lápices ---
   document.querySelectorAll('.edit-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const fila = btn.closest('tr');
@@ -206,21 +205,27 @@ function inicializarEventos() {
     });
   });
 
-  // Guardar cambios
+  // --- Formulario Guardar ---
   const formEditar = document.getElementById('form-editar-etiqueta');
   if (formEditar) {
     formEditar.addEventListener('submit', function(event) {
       event.preventDefault();
       event.stopPropagation();
 
-      editarModal.hide();
+      editarModal.hide(); // Cerramos modal de editar
+
+      // Limpiar clases de Bootstrap manualmente
+      document.body.classList.remove('modal-open');
+      const backdrops = document.querySelectorAll('.modal-backdrop');
+      backdrops.forEach(backdrop => backdrop.remove());
 
       setTimeout(() => {
-        actualizadaModal.show();
-      }, 300);
+        actualizadaModal.show(); // Mostramos modal de actualización exitosa
+      }, 400);
     });
   }
 }
+
 
 
 
