@@ -163,23 +163,6 @@ function inicializarEventos() {
   });
 }
 //Etiqueta Actualizada funcionalidad
-document.addEventListener('DOMContentLoaded', function() {
-  // Cargar modales dinámicamente
-  fetch('https://leandroes.github.io/InvestiGO/modales/modales.html')
-    .then(response => {
-      if (!response.ok) throw new Error('No se pudo cargar modales.html');
-      return response.text();
-    })
-    .then(html => {
-      document.getElementById('modalesContainer').innerHTML = html;
-
-      // Una vez cargados los modales, inicializamos TODO
-      inicializarEventos();
-    })
-    .catch(error => {
-      console.error('Error cargando modales:', error);
-    });
-});
 //////////////////////////////////////////////////////////////////
 // Función para inicializar eventos
 
