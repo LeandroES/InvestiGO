@@ -42,7 +42,6 @@ function inicializarEventos() {
   // ---- Variables de modales ----
   const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
   const actualizadaModal = new bootstrap.Modal(document.getElementById('etiquetaActualizadaModal'));
-  const contenidoPrincipal = document.getElementById('contenidoPrincipal');
 
   if (!form || !formEditar) {
     console.error('Formularios no encontrados.');
