@@ -171,10 +171,7 @@ body {
     vertical-align: middle;
   }
   
-  .modal-backdrop.show {
-    opacity: 0.5;
-  }
-  
+
   /* Mensajes */
   .no-results, .empty-message {
     text-align: center;
