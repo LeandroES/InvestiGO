@@ -14,6 +14,12 @@ body {
   height: 100%;
 }
 
+.switch .form-check-input {
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
 #contenidoPrincipal {
   position: relative;
   z-index: 1;
