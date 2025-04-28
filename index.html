@@ -68,31 +68,6 @@
 <!-- JavaScript principal -->
 <script src="https://leandroes.github.io/InvestiGO/js/scripts_Etiquetas.js" defer></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Primero cargar los modales dinámicamente
-  fetch('https://leandroes.github.io/InvestiGO/modales/modales.html')
-    .then(response => {
-      if (!response.ok) throw new Error('No se pudo cargar modales.html');
-      return response.text();
-    })
-    .then(html => {
-      document.getElementById('modalesContainer').innerHTML = html;
-
-      // Una vez que los modales ya están cargados, inicializamos los eventos
-      const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
-
-      document.querySelectorAll('.edit-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          editarModal.show();
-        });
-      });
-    })
-    .catch(error => {
-      console.error('Error cargando modales:', error);
-    });
-});
-</script>
 
 </body>
 </html>
