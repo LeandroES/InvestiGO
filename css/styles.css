@@ -3,9 +3,10 @@ body {
     padding: 20px;
   }
   
-  body.modal-open {
-    filter: blur(3px);
-  }
+  body.modal-open #contenidoPrincipal {
+  filter: blur(3px);
+}
+
   
   /* Contenedor principal de formularios */
   .form-container {
