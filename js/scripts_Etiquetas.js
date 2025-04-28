@@ -196,12 +196,12 @@ function inicializarEventos() {
   document.querySelectorAll('.edit-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const fila = btn.closest('tr');
-      editarModal.show();
+      
       document.getElementById('editNombre').value = fila.dataset.nombre || '';
       document.getElementById('editDescripcion').value = fila.dataset.descripcion || '';
       document.getElementById('editSelectedColor').style.backgroundColor = fila.dataset.color || '#ccc';
-
-      
+      contenidoPrincipal.style.filter = 'none';
+      editarModal.show();
     });
   });
 
