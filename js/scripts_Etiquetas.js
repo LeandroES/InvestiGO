@@ -1,3 +1,46 @@
+// 1. Primero: cargar modales dinámicamente
+fetch('https://leandroes.github.io/InvestiGO/modales/modales.html')
+  .then(response => {
+    if (!response.ok) throw new Error('No se pudo cargar modales.html');
+    return response.text();
+  })
+  .then(html => {
+    document.getElementById('modalesContainer').innerHTML = html;
+    inicializarEventos(); // 🚀 Solo después de cargar modales
+  })
+  .catch(error => {
+    console.error('Error cargando modales:', error);
+  });
+
+// 2. Luego: inicializar eventos
+function inicializarEventos() {
+  // Aquí recién accedes a los elementos que ahora sí existen
+  const formEditar = document.getElementById('form-editar-etiqueta');
+  const editNombreInput = document.getElementById('editNombre');
+  const editDescripcion = document.getElementById('editDescripcion');
+  const editColorOptions = document.getElementById('editColorOptions');
+  const editColorHitbox = document.getElementById('editColorHitbox');
+  const editSelectedColor = document.getElementById('editSelectedColor');
+
+  if (!formEditar || !editNombreInput) {
+    console.error('Form o inputs no existen todavía.');
+    return;
+  }
+
+  // Ahora sí puedes agregar todos tus eventos
+  editNombreInput.addEventListener('input', () => {
+    const valor = editNombreInput.value.trim();
+    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]*$/;
+    if (valor === '' || !regex.test(valor)) {
+      editNombreInput.classList.add('is-invalid');
+      editNombreInput.classList.remove('is-valid');
+    } else {
+      editNombreInput.classList.remove('is-invalid');
+      editNombreInput.classList.add('is-valid');
+    }
+  });
+
+
 const form = document.getElementById('form-etiqueta');
 const nombreInput = document.getElementById('nombre');
 const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]*$/;
