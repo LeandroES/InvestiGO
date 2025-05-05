@@ -218,6 +218,9 @@ document.addEventListener('DOMContentLoaded', function () {
           document.getElementById('descripcion').value = etiqueta.descripcion;
           document.getElementById('selectedColor').style.backgroundColor = etiqueta.color;
 
+          // ✅ GUARDAR el nombre original en campo oculto (para detectar edición)
+          document.getElementById('nombreOriginal').value = etiqueta.nombre;
+            
           // Mostrar el modal
           const modal = new bootstrap.Modal(document.getElementById('modalEditarEtiquetas'));
           modal.show();
