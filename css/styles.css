@@ -3,24 +3,6 @@ body {
     padding: 20px;
   }
   
-.switch {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.switch .form-check-input {
-  margin-top: 0;
-  margin-bottom: 0;
-  vertical-align: middle;
-}
-
-#contenidoPrincipal {
-  position: relative;
-  z-index: 1;
-}
-
 /* Contenedor principal de formularios */
   .form-container {
     max-width: 500px;
@@ -171,7 +153,10 @@ body {
     vertical-align: middle;
   }
   
-
+  .modal-backdrop.show {
+    opacity: 0.5;
+  }
+  
   /* Mensajes */
   .no-results, .empty-message {
     text-align: center;
@@ -424,130 +409,4 @@ body {
     transform: translateX(50%) rotate(180deg);
     border-bottom: 16px solid #000;
   }
-  /* Selector de colores */
-.color-area {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.color-bubble {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.color-bubble:hover {
-  transform: scale(1.1);
-}
-
-.color-options {
-  position: absolute;
-  top: 50px;
-  left: 0;
-  background: white;
-  border-radius: 8px;
-  padding: 10px;
-  display: none;
-  flex-wrap: wrap;
-  gap: 8px;
-  width: 180px;
-  z-index: 1000;
-}
-
-.color-options.show {
-  display: flex;
-}
-
-.color-options .color-bubble {
-  width: 25px;
-  height: 25px;
-}
-
-/* ========== AÑADIDOS PARA EL FUNCIONAMIENTO ========== */
-/* Selector de colores */
-.color-area {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.color-bubble {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.color-bubble:hover {
-  transform: scale(1.1);
-}
-
-.color-options {
-  position: absolute;
-  top: 50px;
-  left: 0;
-  background: white;
-  border-radius: 8px;
-  padding: 10px;
-  display: none;
-  flex-wrap: wrap;
-  gap: 8px;
-  width: 180px;
-  z-index: 1000;
-}
-
-.color-options.show {
-  display: flex;
-}
-
-.color-options .color-bubble {
-  width: 25px;
-  height: 25px;
-}
-
-/* Botón editar */
-.pencil-icon {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000'%3E%3Cpath d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'/%3E%3C/svg%3E");
-  background-size: contain;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.pencil-icon:hover {
-  transform: scale(1.1);
-}
-
-/* Garantizar que los elementos sean interactivos */
-.edit-btn, .color-area, .color-bubble {
-  pointer-events: auto !important;
-}
-
-/* Feedback visual */
-.invalid-feedback-icon, .valid-feedback-icon {
-  margin-left: 8px;
-}
-
-.color-dot {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-right: 8px;
-}
+  
