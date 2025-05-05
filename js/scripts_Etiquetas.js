@@ -199,8 +199,10 @@ function mostrarModalEditarEtiquetas() {
 }
 
 //
-// Escuchar clics en todos los íconos de edición
 document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('form-etiqueta');
+
+  // Vincular íconos de edición
   document.querySelectorAll('.edit-btn').forEach(btn => {
     btn.addEventListener('click', function () {
       const fila = this.closest('tr');
@@ -208,20 +210,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (!nombreEtiqueta) return;
 
-      // Consultar datos actuales desde Apps Script
       google.script.run.withSuccessHandler(respuesta => {
         if (respuesta.status === 'success') {
           const etiqueta = respuesta.etiqueta;
 
-          // Cargar valores al formulario del modal
+          // Llenar el formulario
           document.getElementById('nombre').value = etiqueta.nombre;
           document.getElementById('descripcion').value = etiqueta.descripcion;
           document.getElementById('selectedColor').style.backgroundColor = etiqueta.color;
-
-          // ✅ GUARDAR el nombre original en campo oculto (para detectar edición)
           document.getElementById('nombreOriginal').value = etiqueta.nombre;
-            
-          // Mostrar el modal
+
+          // Mostrar el modal de edición
           const modal = new bootstrap.Modal(document.getElementById('modalEditarEtiquetas'));
           modal.show();
         } else {
@@ -230,13 +229,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }).consultarEtiqueta(nombreEtiqueta);
     });
   });
-});
 
-///////////////////////////////////////
-
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.getElementById('form-etiqueta');
-
+  // Manejo del envío del formulario
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -244,17 +238,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const descripcion = document.getElementById('descripcion').value.trim();
     const color = document.getElementById('selectedColor').style.backgroundColor;
     const nombreOriginal = document.getElementById('nombreOriginal').value.trim();
+    const esEdicion = nombreOriginal !== '';
 
     if (!nombre || !color) {
-      alert('Nombre y color son obligatorios');
+      alert('El nombre y el color son obligatorios.');
       return;
     }
 
-    // Detectar si estamos editando (el campo nombreOriginal está lleno)
-    const esEdicion = nombreOriginal && nombreOriginal !== '';
-
     if (esEdicion) {
-      // Actualizar etiqueta
       google.script.run.withSuccessHandler(res => {
         if (res.status === 'success') {
           mostrarModalEtiquetaActualizada();
@@ -263,7 +254,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }).actualizarEtiqueta(nombreOriginal, nombre, descripcion, color, true);
     } else {
-      // Crear nueva etiqueta
       google.script.run.withSuccessHandler(res => {
         if (res.status === 'success') {
           mostrarModalEtiquetaGuardada();
@@ -273,8 +263,13 @@ document.addEventListener('DOMContentLoaded', function () {
       }).insertarEtiqueta(nombre, color, descripcion, true);
     }
 
-    // Cerrar el modal (opcional)
+    // Cerrar el modal
     const modal = bootstrap.Modal.getInstance(document.getElementById('modalEditarEtiquetas'));
     if (modal) modal.hide();
+
+    // Limpiar formulario
+    form.reset();
+    document.getElementById('nombreOriginal').value = '';
+    document.getElementById('selectedColor').style.backgroundColor = '#ccc';
   });
 });
