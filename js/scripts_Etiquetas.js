@@ -74,43 +74,83 @@ form.addEventListener('submit', (e) => {
     form.classList.add('was-validated');
 });
 
-document.addEventListener('DOMContentLoaded', function () {
+const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
+let colorSeleccionadoEditar = null;
 
-  function inicializarEventos() {
-    // Botones de editar
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', function () {
-        const editarModal = new bootstrap.Modal(document.getElementById('editarEtiquetaModal'));
-        backdrop: false
-        editarModal.show();
-      });
-    });
+document.querySelectorAll('.edit-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const fila = btn.closest('tr');
+    document.getElementById('editNombre').value = fila.dataset.nombre || '';
+    document.getElementById('editDescripcion').value = fila.dataset.descripcion || '';
+    document.getElementById('editSelectedColor').style.backgroundColor = fila.dataset.color || '#ccc';
+    colorSeleccionadoEditar = fila.dataset.color || null;
+    editarModal.show();
+  });
+});
 
-    // Botón guardar del modal editar
-    const formEditar = document.getElementById('form-editar-etiqueta');
-    formEditar.addEventListener('submit', function (e) {
-      e.preventDefault(); // Evitar envío real del formulario
+const formEditar = document.getElementById('form-editar-etiqueta');
+const editNombreInput = document.getElementById('editNombre');
+const editDescripcion = document.getElementById('editDescripcion');
+const editDescCheck = document.getElementById('editDescCheck');
+const editColorOptions = document.getElementById('editColorOptions');
+const editColorHitbox = document.getElementById('editColorHitbox');
+const editSelectedColor = document.getElementById('editSelectedColor');
+const editColorFeedback = document.getElementById('editColorFeedback');
+const editColorCheck = document.getElementById('editColorCheck');
 
-      const editarModalInstance = bootstrap.Modal.getInstance(document.getElementById('editarEtiquetaModal'));
-      backdrop: false
-      editarModalInstance.hide(); // Cierra editarEtiquetaModal
-
-      // Esperar a que termine de ocultarse para mostrar el de actualizado
-      setTimeout(() => {
-        const actualizadoModal = new bootstrap.Modal(document.getElementById('etiquetaActualizadaModal'));
-        actualizadoModal.show();
-
-        // Cerrar actualizadoModal automáticamente después de 1 segundo
-        setTimeout(() => {
-          actualizadoModal.hide();
-          // Recargar index.html
-          window.location.reload();
-        }, 1000);
-      }, 500); // 500 ms para dar tiempo a cerrar bien el primer modal
-    });
+// Validaciones
+editNombreInput.addEventListener('input', () => {
+  const valor = editNombreInput.value.trim();
+  const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]*$/;
+  if (valor === '' || !regex.test(valor)) {
+    editNombreInput.classList.add('is-invalid');
+    editNombreInput.classList.remove('is-valid');
+  } else {
+    editNombreInput.classList.remove('is-invalid');
+    editNombreInput.classList.add('is-valid');
   }
+});
 
-  // ✨ Esto es lo que faltaba:
-  inicializarEventos();
+editDescripcion.addEventListener('input', () => {
+  if (editDescripcion.value.trim().length > 0) {
+    editDescCheck.classList.remove('d-none');
+  } else {
+    editDescCheck.classList.add('d-none');
+  }
+});
 
+editColorHitbox.addEventListener('mouseenter', () => {
+  editColorOptions.classList.add('show');
+});
+editColorOptions.addEventListener('mouseleave', () => {
+  editColorOptions.classList.remove('show');
+});
+editColorOptions.querySelectorAll('.color-bubble').forEach(bubble => {
+  bubble.addEventListener('click', () => {
+    const selected = bubble.getAttribute('data-color');
+    editSelectedColor.style.backgroundColor = selected;
+    colorSeleccionadoEditar = selected;
+    editColorFeedback.classList.add('d-none');
+    editColorCheck.classList.remove('d-none');
+    editColorOptions.classList.remove('show');
+  });
+});
+
+formEditar.addEventListener('submit', (e) => {
+  let valido = true;
+  if (!formEditar.checkValidity()) {
+    valido = false;
+  }
+  if (!colorSeleccionadoEditar) {
+    editColorFeedback.classList.remove('d-none');
+    editColorCheck.classList.add('d-none');
+    valido = false;
+  }
+  if (!valido) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  formEditar.classList.add('was-validated');
+
+  // Aquí podrías actualizar la tabla directamente si quieres
 });
