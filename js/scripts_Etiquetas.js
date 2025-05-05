@@ -154,3 +154,47 @@ formEditar.addEventListener('submit', (e) => {
 
   // Aquí podrías actualizar la tabla directamente si quieres
 });
+
+//MODALES>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// Mostrar modal de etiqueta actualizada
+function mostrarModalEtiquetaActualizada() {
+  const modal = new bootstrap.Modal(document.getElementById('modalEtiquetaActualizada'));
+  modal.show();
+}
+
+// Mostrar modal de etiqueta desactivada
+function mostrarModalEtiquetaDesactiva() {
+  const modal = new bootstrap.Modal(document.getElementById('modalEtiquetaDesactiva'));
+  modal.show();
+}
+
+// Mostrar modal de etiqueta guardada
+function mostrarModalEtiquetaGuardada() {
+  const modal = new bootstrap.Modal(document.getElementById('modalEtiquetaGuardada'));
+  modal.show();
+}
+
+// Mostrar modal de confirmación para desactivar
+function mostrarModalConfirmacionDesactivacion() {
+  const modal = new bootstrap.Modal(document.getElementById('modalConfirmacionDesactivacion'));
+  modal.show();
+}
+
+// Mostrar modal de confirmación al intentar salir sin guardar
+function mostrarModalConfirmacionGuardado() {
+  const modal = new bootstrap.Modal(document.getElementById('modalConfirmacionGuardado'));
+  modal.show();
+}
+
+// Mostrar modal de filtro por etiquetas
+function mostrarModalFiltroEtiquetas() {
+  const modal = new bootstrap.Modal(document.getElementById('modalFiltroEtiquetas'));
+  modal.show();
+}
+
+// Mostrar modal de edición de etiqueta
+function mostrarModalEditarEtiquetas() {
+  const modal = new bootstrap.Modal(document.getElementById('modalEditarEtiquetas'));
+  modal.show();
+}
+
