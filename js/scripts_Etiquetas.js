@@ -198,3 +198,80 @@ function mostrarModalEditarEtiquetas() {
   modal.show();
 }
 
+//
+// Escuchar clics en todos los íconos de edición
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const fila = this.closest('tr');
+      const nombreEtiqueta = fila.dataset.nombre;
+
+      if (!nombreEtiqueta) return;
+
+      // Consultar datos actuales desde Apps Script
+      google.script.run.withSuccessHandler(respuesta => {
+        if (respuesta.status === 'success') {
+          const etiqueta = respuesta.etiqueta;
+
+          // Cargar valores al formulario del modal
+          document.getElementById('nombre').value = etiqueta.nombre;
+          document.getElementById('descripcion').value = etiqueta.descripcion;
+          document.getElementById('selectedColor').style.backgroundColor = etiqueta.color;
+
+          // Mostrar el modal
+          const modal = new bootstrap.Modal(document.getElementById('modalEditarEtiquetas'));
+          modal.show();
+        } else {
+          alert(`Error: ${respuesta.mensaje}`);
+        }
+      }).consultarEtiqueta(nombreEtiqueta);
+    });
+  });
+});
+
+///////////////////////////////////////
+
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('form-etiqueta');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById('nombre').value.trim();
+    const descripcion = document.getElementById('descripcion').value.trim();
+    const color = document.getElementById('selectedColor').style.backgroundColor;
+    const nombreOriginal = document.getElementById('nombreOriginal').value.trim();
+
+    if (!nombre || !color) {
+      alert('Nombre y color son obligatorios');
+      return;
+    }
+
+    // Detectar si estamos editando (el campo nombreOriginal está lleno)
+    const esEdicion = nombreOriginal && nombreOriginal !== '';
+
+    if (esEdicion) {
+      // Actualizar etiqueta
+      google.script.run.withSuccessHandler(res => {
+        if (res.status === 'success') {
+          mostrarModalEtiquetaActualizada();
+        } else {
+          alert(res.mensaje);
+        }
+      }).actualizarEtiqueta(nombreOriginal, nombre, descripcion, color, true);
+    } else {
+      // Crear nueva etiqueta
+      google.script.run.withSuccessHandler(res => {
+        if (res.status === 'success') {
+          mostrarModalEtiquetaGuardada();
+        } else {
+          alert(res.mensaje);
+        }
+      }).insertarEtiqueta(nombre, color, descripcion, true);
+    }
+
+    // Cerrar el modal (opcional)
+    const modal = bootstrap.Modal.getInstance(document.getElementById('modalEditarEtiquetas'));
+    if (modal) modal.hide();
+  });
+});
