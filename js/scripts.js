@@ -1,5 +1,4 @@
-<script>
-      // Variables globales para la paginación
+// Variables globales para la paginación
       let paginaActual = 1;
       let totalEtiquetas = 0;
       let totalPaginas = 0;
@@ -538,5 +537,4 @@
         // Rehabilitar el botón de guardar
         document.getElementById('btnGuardarEtiqueta').disabled = false;
         mostrarError(error);
-      }    
-</script>
+      }
