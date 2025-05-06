@@ -117,20 +117,31 @@
   
       .search-container {
         position: relative;
+        margin-bottom: 1rem;
       }
   
-      .search-container .bi-search {
+      .search-container input {
+        padding-left: 2.5rem;
+        border-radius: 20px;
+        border: 1px solid #dee2e6;
+        transition: all 0.3s ease;
+      }
+  
+      .search-container input:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+      }
+  
+      .search-container::before {
+        content: '\F349';
+        font-family: 'Bootstrap Icons';
         position: absolute;
-        top: 11px;
-        left: 12px;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
         color: #6c757d;
       }
   
-      .search-input {
-        padding-left: 35px;
-      }
-  
-      /* Agregado */
       .search-containers {
         position: relative;
         width: 250px;
@@ -151,7 +162,7 @@
         cursor: pointer;
       }
   
-      /* Fin de agregado */
+      /* Agregado */
   
       /* Ajustes para la tabla */
       .table th, .table td {
