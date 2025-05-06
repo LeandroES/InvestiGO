@@ -1,0 +1,155 @@
+
+<!-- Modal para Crear/Editar Etiqueta -->
+<div class="modal fade" id="modalEtiqueta" tabindex="-1" aria-labelledby="modalEtiquetaLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tituloModalEtiqueta">Crear Etiqueta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar" id="btnCerrarEtiqueta"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formEtiqueta" class="needs-validation" novalidate>
+          <input type="hidden" id="etiquetaId" name="etiquetaId">
+          <input type="hidden" id="accionEtiqueta" name="accionEtiqueta" value="crear">
+          <input type="hidden" id="nombreOriginal" name="nombreOriginal">
+          
+          <!-- Campo Nombre -->
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text"
+                class="form-control"
+                id="nombre"
+                name="nombre"
+                placeholder="Nombre de la etiqueta"
+                required
+                pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]*$"
+                title="Debe comenzar con una letra del español. Puede incluir tildes, ñ, diéresis, espacios y números después de letras.">
+            <div class="invalid-feedback" id="feedbackNombre">
+                Solo letras del español y números después de una letra. No se permiten signos ni dejar vacío.
+            </div>
+          </div>
+          
+          <!-- Campo Color -->
+          <div class="mb-3">
+            <label class="form-label">Color:</label>
+            <span id="colorFeedback" class="invalid-feedback-icon d-none">❌ Elija un color</span>
+            <span id="colorCheck" class="valid-feedback-icon d-none">✅</span>
+            <div class="position-relative">
+                <div class="color-area border border-1" id="colorHitbox">
+                    <div class="color-bubble" id="selectedColor" style="background-color: #ccc;"></div>
+                </div>
+                <div class="color-options shadow" id="colorOptions">
+                    <div class="color-bubble" style="background-color: #00ff00;" data-color="#00ff00"></div>
+                    <div class="color-bubble" style="background-color: #ffff00;" data-color="#ffff00"></div>
+                    <div class="color-bubble" style="background-color: #ff0000;" data-color="#ff0000"></div>
+                    <div class="color-bubble" style="background-color: #0000ff;" data-color="#0000ff"></div>
+                    <div class="color-bubble" style="background-color: #ff00ff;" data-color="#ff00ff"></div>
+                    <div class="color-bubble" style="background-color: #000000;" data-color="#000000"></div>
+                    <div class="color-bubble" style="background-color: #ffa500;" data-color="#ffa500"></div>
+                    <div class="color-bubble" style="background-color: #800080;" data-color="#800080"></div>
+                </div>
+            </div>
+          </div>
+          
+          <!-- Campo Descripción -->
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción:</label>
+            <span id="descCheck" class="valid-feedback-icon d-none">✅</span>
+            <div id="descripcionFeedback" class="form-text text-muted">
+                * Puedes dejarlo en blanco si no deseas agregar una descripción.
+            </div>
+            <textarea class="form-control" id="descripcion" name="descripcion" rows="3" 
+                     placeholder="Descripción de la etiqueta"></textarea>
+          </div>
+          
+          <!-- Botones -->
+          <div class="d-flex justify-content-between mt-4">
+            <button type="button" class="btn btn-outline-dark" id="btnCancelarEtiqueta">Cancelar</button>
+            <button type="submit" class="btn btn-primary" id="btnGuardarEtiqueta">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Error -->
+<div class="modal fade" id="modalError" tabindex="-1" aria-labelledby="modalErrorLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalErrorLabel">Error</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <p id="mensajeError" class="text-danger">Ha ocurrido un error.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Etiqueta Actualizada (CU-11-M07) -->
+<div class="modal fade" id="modalEtiquetaActualizada" tabindex="-1" aria-labelledby="actualizadaModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border rounded shadow">
+      <div class="modal-body p-4">
+        <h5 class="text-center mb-4">Etiqueta Actualizada ✅</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Etiqueta Desactivada (CU-11-M08) -->
+<div class="modal fade" id="modalEtiquetaDesactiva" tabindex="-1" aria-labelledby="desactivadaModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border rounded shadow">
+      <div class="modal-body p-4">
+        <h5 class="text-center mb-4">Etiqueta Desactivada ✅</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Etiqueta Guardada (CU-11-M10) -->
+<div class="modal fade" id="modalEtiquetaGuardada" tabindex="-1" aria-labelledby="guardadaModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border rounded shadow">
+      <div class="modal-body p-4">
+        <h5 class="text-center mb-4">Etiqueta Guardada ✅</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Confirmación de Desactivación (CU-11-M04) -->
+<div class="modal fade" id="modalConfirmacionDesactivacion" tabindex="-1" aria-labelledby="confirmacionDesactivacionModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border rounded shadow">
+      <div class="modal-body p-4">
+        <h5 class="text-center mb-4">¿Desea desactivar esta etiqueta?</h5>
+        <div class="d-flex justify-content-center gap-2">
+          <button type="button" class="btn btn-light" id="btnCancelarDesactivacion" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnConfirmarDesactivacion">Sí</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Confirmación para salir sin guardar (CU-11-M09) -->
+<div class="modal fade" id="modalConfirmacionGuardado" tabindex="-1" aria-labelledby="confirmacionGuardadaModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border rounded shadow">
+      <div class="modal-body p-4">
+        <h5 class="text-center mb-4">¿Está seguro que desea salir sin guardar?</h5>
+        <div class="d-flex justify-content-center gap-2">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnConfirmarSalida">Sí</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
