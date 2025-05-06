@@ -1,412 +1,711 @@
-/* Estilos generales */
-body {
+/* Estilos para el spinner */
+  .spinner-border {
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+  
+  /* Estilos para mensajes de error */
+  .error-message {
+    transition: all 0.3s ease;
+    opacity: 1;
+    max-height: 100px;
+    overflow: hidden;
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+  }
+  
+  .error-message.d-none {
+    opacity: 0;
+    max-height: 0;
+  }
+  
+  /* Estilo para inputs inválidos */
+  .is-invalid {
+    border-color: #dc3545 !important;
+    background-image: url("data:image/svg+xml,...");
+  }
+  
+    body {
     padding: 20px;
+    }
+  
+  .form-check, .tag-item {
+    margin-bottom: 10px;
+    break-inside: avoid;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
   }
   
-/* Contenedor principal de formularios */
-  .form-container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 30px;
-    border-radius: 20px;
-    background-color: #e9ecef;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  
-  /* Área de color */
-  .color-area {
+  .tag-item {
     display: flex;
     align-items: center;
-    width: fit-content;
-    padding: 10px 20px;
-    border-radius: 10px;
+    border: 1px solid #ccc;
   }
-  
-  /* Burbujas de color */
-  .color-bubble {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    margin-right: 8px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: transform 0.2s;
+  .modal-header {
+    border-bottom: 1px solid #dee2e6;
   }
-  
-  .color-bubble:hover {
-    transform: scale(1.2);
-  }
-  
-  /* Opciones de color */
-  .color-options {
-    display: none;
-    flex-wrap: nowrap;
-    gap: 8px;
-    margin-top: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 10px 20px;
-    background-color: #e9ecef;
-    border-radius: 10px;
-    z-index: 100;
-  }
-  
-  .color-options.show {
+  .modal-footer-right {
     display: flex;
+    gap: 10px;
   }
   
-  /* Íconos de validación */
-  .valid-feedback-icon {
-    margin-left: 10px;
-    color: green;
-  }
-  
-  .invalid-feedback-icon {
-    margin-left: 10px;
-    color: red;
-  }
-  
-  /* Ícono de lápiz */
-  .pencil-icon {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    position: relative;
-    background-color: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin: 0 5px;
-  }
-  
-  .pencil-icon::before {
-    content: '';
-    position: absolute;
-    width: 3px;
-    height: 14px;
-    background-color: #555;
-    transform: rotate(45deg) translate(-1px, 0);
-    top: 1px;
-    left: 8px;
-    border-radius: 2px;
-  }
-  
-  .pencil-icon::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 7px solid #FFC107;
-    top: -3px;
-    left: 5px;
-    transform: rotate(45deg);
-    filter: drop-shadow(0 0 1px rgba(0,0,0,0.2));
-  }
-  
-  .pencil-icon:hover {
-    transform: scale(1.1);
-  }
-  
-  .pencil-icon:hover::before {
-    background-color: #333;
-    height: 15px;
-  }
-  
-  .pencil-icon:hover::after {
-    border-top-color: #FFA000;
-    transform: rotate(45deg) scale(1.05);
-  }
-  
-  .pencil-icon:active {
-    transform: scale(0.95);
-  }
-  
-  /* Puntos de color pequeños */
-  .color-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 6px;
-  }
-  
-  /* Switches */
-  .switch input:checked {
-    background-color: green;
-    border-color: green;
-  }
-  
-  .switch input:not(:checked) {
-    background-color: red;
-    border-color: red;
-  }
-  
-  /* Ajuste de tablas */
-  .table > :not(caption) > * > * {
-    vertical-align: middle;
-  }
-  
-  .table th, .table td {
-    padding: 0.75rem;
-    vertical-align: middle;
-  }
-  
-  .modal-backdrop.show {
-    opacity: 0.5;
-  }
-  
-  /* Mensajes */
   .no-results, .empty-message {
     text-align: center;
     padding: 15px;
     color: #6c757d;
     font-style: italic;
   }
-  
   .empty-message {
     padding: 30px;
   }
-  
-  /* Selector de etiquetas */
-  .etiquetas-container {
-    max-height: 300px;
-    overflow-y: auto;
-    margin-top: 15px;
-    padding-right: 5px;
-  }
-  
-  .checkbox-columns {
-    column-count: 2;
-  }
-  
-  .form-check {
-    margin: 0 auto 10px auto;
-    display: block;
-    width: fit-content;
-    break-inside: avoid;
-    cursor: pointer;
-    padding: 8px 8px;
-    border-radius: 6px;
+  .tag-button {
+    position: relative;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
     transition: all 0.2s;
+    margin-right: 8px;
+    vertical-align: middle;
   }
-  
-  .form-check:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .form-check.selected {
-    background-color: #e9f0ff;
-    box-shadow: 0 0 8px rgba(13, 110, 253, 0.3);
-  }
-  
-  .form-check-label {
+  .form-check-label, .tag-label {
     cursor: pointer;
     display: block;
     width: 100%;
   }
-  
-  /* Buscadores */
-  .search-container {
-    position: relative;
+  .tag-label {
+    font-size: 14px;
   }
   
-  .search-container .bi-search {
-    position: absolute;
-    top: 11px;
-    left: 12px;
-    color: #6c757d;
-  }
   
-  .search-input {
-    padding-left: 35px;
-  }
+    /* Estilos para el selector de etiquetas */
+      .etiquetas-container {
+        max-height: 300px;
+        overflow-y: auto;
+        margin-top: 15px;
+        padding-right: 5px;
+      }
   
-  /* Badges */
-  .badge {
-    display: inline-block;
-    margin-right: 5px;
-  }
+      .checkbox-columns {
+        column-count: 2;
+      }
   
-  .custom-badge {
-    margin-right: 5px;
-    padding: 5px 8px;
-    font-size: 12px;
-    font-weight: normal;
-    color: #fff !important;
-  }
+      .form-check {
+        margin: 0 auto 10px auto;
+        display: block;
+        width: fit-content;
+        break-inside: avoid;
+        cursor: pointer;
+        padding: 8px 8px;
+        border-radius: 6px;
+        transition: all 0.2s;
+      }
   
-  /* Botones personalizados */
-  .btn-cargar, .btn-buscar, .btn-detalles {
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    padding: 6px 12px;
-    border-radius: 4px;
-  }
+      .form-check:hover {
+        background-color: #f0f0f0;
+      }
   
-  .btn-detalles {
-    font-size: 0.8rem;
-    margin-left: 6px;
-  }
+      .form-check.selected {
+        background-color: #e9f0ff;
+        box-shadow: 0 0 8px rgba(13, 110, 253, 0.3);
+      }
   
-  /* Cabecera */
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+      .search-container {
+        position: relative;
+        margin-bottom: 1rem;
+      }
   
-  /* Estado de switches */
-  .form-check-input {
-    background-color: #ccc;
-    border-color: #ccc;
-  }
+      .search-container input {
+        padding-left: 2.5rem;
+        border-radius: 20px;
+        border: 1px solid #dee2e6;
+        transition: all 0.3s ease;
+      }
   
-  .form-check-input:checked {
-    background-color: #198754 !important;
-    border-color: #198754 !important;
-  }
+      .search-container input:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+      }
   
-  .form-check-input:not(:checked) {
-    background-color: #dc3545 !important;
-    border-color: #dc3545 !important;
-  }
+      .search-container::before {
+        content: '\F349';
+        font-family: 'Bootstrap Icons';
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+      }
   
-  /* Íconos Ver Más */
-  .ver-mas {
-    display: inline-block;
-    background-color: #e0e0e0;
-    color: #000;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    cursor: pointer;
-  }
+      .search-containers {
+        position: relative;
+        width: 250px;
+      }
   
-  .ver-mas:hover {
-    background-color: #cfcfcf;
-  }
+      .search-inputs {
+        padding-right: 40px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+      }
   
-  /* Modal Header y Footer */
-  .modal-header {
-    border-bottom: 1px solid #dee2e6;
-  }
+      .search-iconss {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        cursor: pointer;
+      }
   
-  .modal-footer {
-    justify-content: flex-end;
-    border-top: 1px solid #dee2e6;
-  }
+      /* Agregado */
   
-  /* Íconos Google Docs y Sheets */
-  .icon-google-docs, .icon-google-sheets {
-    position: relative;
-    width: 18px;
-    height: 24px;
-    border-radius: 2px;
-    overflow: hidden;
-  }
+      /* Ajustes para la tabla */
+      .table th, .table td {
+        padding: 0.75rem;
+        vertical-align: middle;
+      }
   
-  .icon-google-docs {
-    background-color: #4285f4;
-  }
+      .table th:nth-child(1) { /* Nombre */
+        width: 40%;
+        min-width: 200px;
+      }
   
-  .icon-google-sheets {
-    background-color: #0f9d58;
-  }
+      .table th:nth-child(2) { /* Tipo */
+        width: 10%;
+        min-width: 60px;
+      }
   
-  .icon-google-docs::before, .icon-google-sheets::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 6px;
-    height: 6px;
-    background-color: #f1f3f4;
-    clip-path: polygon(100% 0, 0 0, 100% 100%);
-    box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
-  }
+      .table th:nth-child(3) { /* Etiquetas */
+        width: 25%;
+        min-width: 150px;
+      }
   
-  .icon-google-docs::after {
-    content: "";
-    position: absolute;
-    top: 10px;
-    left: 3px;
-    width: 12px;
-    height: 1px;
-    background-color: white;
-    box-shadow:
-      0 8px 0 white,
-      0 4px 0 white,
-      0 8px 0 white,
-      0 8px 0 white;
-  }
+      .table th:nth-child(4) { /* Nro. de usos */
+        width: 10%;
+        min-width: 80px;
+      }
   
-  .icon-google-sheets::after {
-    content: "";
-    position: absolute;
-    top: 6px;
-    left: 3px;
-    width: 12px;
-    height: 12px;
-    background:
-      linear-gradient(to right, white 1.5px, transparent 1.5px),
-      linear-gradient(to bottom, white 1.5px, transparent 1.5px);
-    background-size: 6px 4px;
-  }
+      .table th:nth-child(5) { /* Fecha */
+        width: 10%;
+        min-width: 100px;
+      }
   
-  /* Íconos Upload y Download */
-  .icon-upload, .icon-download {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 30px;
-    border: 4px solid #000;
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-    box-sizing: border-box;
-  }
+      .table th:nth-child(6) { /* Columna vacía */
+        width: 2%;
+        min-width: 20px;
+      }
   
-  .icon-upload::before, .icon-download::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 8px;
-    height: 20px;
-    background: #000;
-    border-radius: 2px;
-  }
+      .table th:nth-child(7) { /* Estado */
+        width: 3%;
+        min-width: 40px;
+      }
   
-  .icon-upload::before {
-    bottom: 20px;
-  }
+      .table thead th {
+        font-weight: 600;
+        background-color: #f8f9fa;
+        white-space: nowrap;
+      }
   
-  .icon-download::before {
-    bottom: 33px;
-  }
+      /* Mejorar la apariencia de las badges */
+      .badge {
+        display: inline-block;
+        margin-right: 5px;
+      }
+      .custom-badge {
+          margin-right: 5px;
+          padding: 5px 8px;
+          font-size: 12px;
+          font-weight: normal;
+          color: #fff !important; /* Asegura que el texto sea blanco */
+      }
+      
+      .btn-cargar {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        padding: 6px 12px;
+        border-radius: 4px;
+      }
   
-  .icon-upload::after, .icon-download::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 14px solid transparent;
-    border-right: 14px solid transparent;
-  }
+      .btn-buscar {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        padding: 6px 12px;
+        border-radius: 4px;
+        float: right;
+      }
   
-  .icon-upload::after {
-    bottom: 36px;
-    border-bottom: 16px solid #000;
-  }
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
   
-  .icon-download::after {
-    bottom: 20px;
-    transform: translateX(50%) rotate(180deg);
-    border-bottom: 16px solid #000;
-  }
+      .form-check-input {
+        background-color: #ccc;
+        border-color: #ccc;
+      }
+  
+      /* Estilos para los switches */
+      .form-check-input:checked {
+        background-color: #198754 !important;
+        border-color: #198754 !important;
+      }
+          
+      .form-check-input:not(:checked) {
+        background-color: #dc3545 !important;
+        border-color: #dc3545 !important;
+      }
+         
+  
+  
+      /* Agregado */
+      .ver-mas {
+        display: inline-block;
+        background-color: #e0e0e0; /* Gris claro */
+        color: #000;               /* Texto negro */
+        padding: 2px 6px;          /* Espaciado alrededor */
+        border-radius: 4px;        /* Esquinas redondeadas */
+        font-weight: bold;
+        font-size: 0.9rem;
+        cursor: pointer;
+      }
+  
+      .ver-mas:hover {
+        background-color: #cfcfcf;
+      }
+  
+      /* Fin agregado */
+  
+      .centered-column {
+        text-align: center;
+      }
+          
+      .uso-count {
+        font-weight: 500;
+      }
+          
+      /* Estilos para el botón detalles */
+      .btn-detalles {
+        font-size: 0.8rem;
+        padding: 2px 6px;
+        margin-left: 6px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+      }
+  
+      .form-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 20px;
+        background-color: #e9ecef;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+  
+      .color-area {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        padding: 10px 20px;
+        border-radius: 10px;
+      }
+  
+      .color-bubble {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 8px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: transform 0.2s;
+      }
+  
+      .color-bubble:hover {
+        transform: scale(1.2);
+      }
+  
+      .color-options {
+        display: none;
+        flex-wrap: nowrap;
+        gap: 8px;
+        margin-top: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px 20px;
+        background-color: #e9ecef;
+        border-radius: 10px;
+        z-index: 100;
+      }
+  
+      .color-options.show {
+        display: flex;
+      }
+  
+      .valid-feedback-icon {
+        margin-left: 10px;
+        color: green;
+      }
+  
+      .invalid-feedback-icon {
+        margin-left: 10px;
+        color: red;
+      }
+  
+      /* Iconos */
+  
+      /* Añadido para mejorar el icono */
+      .pencil-icon {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        position: relative;
+        background-color: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0 5px;
+      }
+  
+      .pencil-icon::before {
+        content: '';
+        position: absolute;
+        width: 3px;
+        height: 14px;
+        background-color: #555;
+        transform: rotate(45deg) translate(-1px, 0);
+        top: 1px;
+        left: 8px;
+        border-radius: 2px;
+        transition: all 0.2s ease;
+      }
+  
+      .pencil-icon::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 7px solid #FFC107; /* Amarillo más vibrante */
+        top: -3px;
+        left: 5px;
+        transform: rotate(45deg);
+        filter: drop-shadow(0 0 1px rgba(0,0,0,0.2));
+        transition: all 0.2s ease;
+      }
+  
+  
+      .pencil-icon:hover {
+        transform: scale(1.1);
+      }
+  
+      .pencil-icon:hover::before {
+        background-color: #333;
+        height: 15px;
+      }
+  
+      .pencil-icon:hover::after {
+        border-top-color: #FFA000;
+        transform: rotate(45deg) scale(1.05);
+      }
+  
+      /* Efecto al hacer click */
+      .pencil-icon:active {
+        transform: scale(0.95);
+      }
+  
+      /* Añadido para entornos pequeños, no tenia */
+      .pencil-icon.small {
+        width: 14px;
+        height: 14px;
+      }
+  
+      .pencil-icon.small::before {
+        height: 11px;
+        left: 6px;
+        top: 1px;
+      }
+  
+      .pencil-icon.small::after {
+        border-left-width: 3px;
+        border-right-width: 3px;
+        border-top-width: 5px;
+        left: 4px;
+        top: -2px;
+      }
+  
+      /* Fin de añadido */
+  
+      .color-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 6px;
+      }
+  
+      .table > :not(caption) > * > * {
+        vertical-align: middle;
+      }
+  
+      .modal-backdrop.show {
+        opacity: 0.5;
+      }
+  
+      /* Añadido */
+  
+      /* Ícono Google Docs - Estilo refinado */
+      .icon-google-docs {
+        position: relative;
+        width: 18px;
+        height: 24px;
+        background-color: #4285f4; /* Azul característico de Docs */
+        border-radius: 2px;
+        overflow: hidden;
+      }
+  
+      /* Esquina doblada (simula la página doblada) */
+      .icon-google-docs::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 6px;
+        height: 6px;
+        background-color: #f1f3f4; /* Gris claro (color de fondo doblado) */
+        clip-path: polygon(100% 0, 0 0, 100% 100%);
+        box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
+      }
+  
+      /* Líneas de texto (estilo Google Docs) */
+      .icon-google-docs::after {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 3px;
+        width: 12px;
+        height: 1px;
+        background-color: white;
+        box-shadow:
+          0 8px 0 white,
+          0 4px 0 white,
+          0 8px 0 white,
+          0 8px 0 white;
+      }
+  
+      /*Google Sheets */
+      .icon-google-sheets {
+        position: relative;
+        width: 18px;
+        height: 24px;
+        background-color: #0f9d58; /* Verde Google Sheets */
+        border-radius: 2px;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+  
+      /* Esquina doblada */
+      .icon-google-sheets::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 6px;
+        height: 6px;
+        background-color: #f1f3f4; /* Gris claro (color de fondo doblado) */
+        clip-path: polygon(100% 0, 0 0, 100% 100%);
+        box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
+      }
+            /* Celdas estilo tabla */
+      .icon-google-sheets::after {
+        content: "";
+        position: absolute;
+        top: 6px;
+        left: 3px;
+        width: 12px;
+        height: 12px;
+        background:
+          linear-gradient(to right, white 1.5px, transparent 1.5px),
+          linear-gradient(to bottom, white 1.5px, transparent 1.5px);
+        background-size: 6px 4px;
+        background-repeat: 2;
+      }
+  
+  /* Fin de añadido */
+  
+      /*Upload icon */
+      .icon-upload {
+      /* Bandeja inferior */
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 30px;
+        border: 4px solid #000;     /* grosor de la línea */
+        border-top: none;           /* abierto en la parte de arriba */
+        border-radius: 0 0 8px 8px; /* esquinas redondeadas sólo abajo */
+        box-sizing: border-box;
+      }
+      
+      /* Flecha: cuerpo vertical */
+      .icon-upload::before {
+        content: "";
+        position: absolute;
+        left: 50%;                   /* centrado horizontal */
+        bottom: 20px;                /* justo en el borde superior de la bandeja */
+        transform: translateX(-50%);
+        width: 8px;                  /* grosor de la flecha */
+        height: 20px;                /* largo de la flecha */
+        background: #000;            /* color de la flecha */
+        border-radius: 2px;          /* esquinas redondeadas en la barra */
+      }
+      
+      /* Flecha: punta triangular */
+      .icon-upload::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 36px;                /* 30 (bandeja) + 20 (barra) = 50 */
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-bottom: 16px solid #000;
+      }
+  
+  
+      /*Download icon */
+      .icon-download {
+      /* Bandeja inferior */
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 30px;
+        border: 4px solid #000;     /* grosor de la línea */
+        border-top: none;           /* abierto en la parte de arriba */
+        border-radius: 0 0 8px 8px; /* esquinas redondeadas sólo abajo */
+        box-sizing: border-box;
+      }
+      /* Flecha: cuerpo vertical */
+      .icon-download::before {
+        content: "";
+        position: absolute;
+        left: 50%;                   /* centrado horizontal */
+        bottom: 33px;                /* justo en el borde superior de la bandeja */
+        transform: translateX(-50%);
+        width: 8px;                  /* grosor de la flecha */
+        height: 20px;                /* largo de la flecha */
+        background: #000;            /* color de la flecha */
+        border-radius: 2px;          /* esquinas redondeadas en la barra */
+      }
+      /* Flecha: punta triangular */
+      .icon-download::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 20px;                /* 30 (bandeja) + 20 (barra) = 50 */
+        transform: translateX(50%);
+        rotate: 180deg;            /* girar la flecha */
+        width: 0;
+        height: 0;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-bottom: 16px solid #000;
+      }
+      
+      /*Google Drive */
+      .icon-google-drive {
+        width: 120px;
+        height: 120px;
+      /* Para ver el área de trabajo con un color de fondo provisional */
+        background: #ccc;
+      /* Polígono estilo Google Drive (aprox) */
+        clip-path: polygon(
+          45% 0%,
+          55% 0%,
+        /*   Dos esquinas para la esquina inferior derecha   */
+          100% 90%,
+          90% 100%,
+        /*   Dos esquinas para la esquina inferior izquierda   */
+          10% 100%,
+          0% 90%   /* esquina izquierda sup */
+        );
+        position: relative;
+        margin: 20px;
+        background: linear-gradient(
+          45deg,         /* ángulo diagonal */
+          transparent 50%, /* mitad transparente */
+          #f00 50%        /* mitad de color (rojo en este ejemplo) */
+        ) no-repeat;
+      }
+  
+      .tag-item {
+        margin-bottom: 10px;
+        break-inside: avoid;
+        padding: 8px 12px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc; 
+      }
+      /* Añadido */
+      .modal-header {
+        border-bottom: 1px solid #dee2e6;
+      }
+  
+      .modal-footer {
+        justify-content: flex-end;
+        border-top: 1px solid #dee2e6;
+      }
+  
+      /* Fin añadido */
+  
+      /* Estilo opcional para el fondo rojo tenue del modal de error */
+      .modal-error-highlight {
+        background-color: rgba(220, 53, 69, 0.1); /* bg-danger con opacidad */
+        border-radius: 0.25rem; /* para que coincida con bordes si es necesario */
+        padding: 1rem; /* Añadir algo de padding */
+        margin-bottom: 1rem; /* Espacio antes de los mensajes de error */
+      }
+      .modal-body .text-warning { color: #ffc107 !important; } /* Asegurar color warning */
+      .modal-body .text-danger { color: #dc3545 !important; } /* Asegurar color danger */
+
+.etiquetas-vermas-lista .form-check {
+  display: block !important;
+  color: #222 !important;
+  background: #f8f9fa !important;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 6px;
+  border-radius: 5px;
+  padding: 6px 10px;
+  font-size: 1rem;
+}
+
+.etiquetas-vermas-lista .form-check-label {
+  color: #222 !important;
+  font-weight: 500;
+}
+
+.etiquetas-vermas-lista .tag-button {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Dejar solo este bloque robusto al final */
+.form-check-lista.columnas-2,
+.etiquetas-vermas-lista.columnas-2 {
+  column-count: 2 !important;
+  column-gap: 16px !important;
+}
+.form-check-lista.columnas-2 .form-check,
+.etiquetas-vermas-lista.columnas-2 .form-check {
+  width: 100%;
+  box-sizing: border-box;
+}
   
