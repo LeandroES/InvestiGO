@@ -1,4 +1,6 @@
-/* Estilos para el spinner */
+<style>
+
+  /* Estilos para el spinner */
   .spinner-border {
     vertical-align: middle;
     margin-right: 5px;
@@ -708,4 +710,4 @@
   width: 100%;
   box-sizing: border-box;
 }
-  
+</style>  
